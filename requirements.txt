@@ -1,0 +1,5 @@
+ollama
+whisper
+
+numpy
+soundfile
