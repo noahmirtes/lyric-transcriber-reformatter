@@ -28,8 +28,9 @@ from transcribe import transcribe_audio
 from reformat import reformat_basic
 from utils import write_to_txt
 
-def one_main(path):
 
+
+def one_main(path):
 
     # load the audio
     audio, sr = load_audio(path)

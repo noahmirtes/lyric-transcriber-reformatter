@@ -1,13 +1,19 @@
 import numpy as np
 import soundfile as sf
+import tempfile
+
+# -------------------------------------------- UTILS -----
 
 EPS = 1e-12
+
 
 def db_to_linear(db):
     return 10.0 ** (db / 20.0)
 
+
 def linear_to_db(x):
     return 20.0 * np.log10(np.maximum(x, EPS))
+
 
 def smoothing_coefficient(time_seconds, sample_rate):
     """
@@ -24,7 +30,9 @@ def load_audio(path : str):
         x, sr = sf.read(f)
         return x, sr
 
-# -------------------------------------------- #
+
+# -------------------------------------------- PROCESS -----
+
 
 def peak_normalize(audio: np.ndarray, target_peak: float = 0.999) -> np.ndarray:
     """Normalize audio so its peak is at target_peak. """
@@ -39,7 +47,6 @@ def peak_normalize(audio: np.ndarray, target_peak: float = 0.999) -> np.ndarray:
 
     # Apply scaling in place
     return audio * scale
-
 
 
 def simple_gate(audio, sr, threshold_db=-35.0, attack_ms=10.0, release_ms=200.0):
@@ -136,7 +143,6 @@ def trim_silence_my_version(audio, sr, silence_threshold=-60, pad_ms=250, min_cl
     print(len(out_segments))
     out = np.concatenate(out_segments)
     return out
-
 
 
 def trim_silence(audio, sr, silence_threshold=-60, pad_ms=250, min_clip_len_sec=4.0):
