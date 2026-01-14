@@ -1,6 +1,5 @@
 import numpy as np
 import soundfile as sf
-import tempfile
 
 EPS = 1e-12
 
